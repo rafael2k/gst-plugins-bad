@@ -133,7 +133,7 @@ static GstStaticPadTemplate src_template = GST_STATIC_PAD_TEMPLATE ("src",
         "mpegversion = (int) 4, "
         "rate = (int) { " SAMPLE_RATES " }, "
         "channels = (int) {1, 2, 3, 4, 5, 6, 8}, "
-        "stream-format = (string) { adts, adif, raw }, "
+        "stream-format = (string) { adts, adif, loas, raw }, "
         "base-profile = (string) lc, " "framed = (boolean) true")
     );
 
@@ -281,6 +281,9 @@ gst_fdkaacenc_set_format (GstAudioEncoder * enc, GstAudioInfo * info)
       } else if (strcmp (str, "adif") == 0) {
         GST_DEBUG_OBJECT (self, "use ADIF format for output");
         transmux = 1;
+      } else if (strcmp (str, "loas") == 0) {
+        GST_DEBUG_OBJECT (self, "use LOAS format for output");
+        transmux = 10;
       } else if (strcmp (str, "raw") == 0) {
         GST_DEBUG_OBJECT (self, "use RAW format for output");
         transmux = 0;
